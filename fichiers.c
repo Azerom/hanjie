@@ -107,13 +107,13 @@ void sauvegarde(Partie * partie, char addresse[150])
     date=*localtime(&temps);
     strftime(format, 50, "%d/%m/%y à %X", &date);
 
-    fichier = fopen("test.bin", "w");
+    fichier = fopen(addresse, "wb");
     fprintf(fichier, "# Fichier de sauvegarde du jeu exia.hanjie, générée le %s\n", format);
     fprintf(fichier, "# Toute modification peut mener à la corruption de la sauvegarde\n");
     fprintf(fichier, "#--------------------------------------------------------------------\n");
 
     fprintf(fichier, "t_debut: %f\n",  partie->date);//Date de début
-    fprintf(fichier, "t_save: %f\n",  (double) temps);//Date de sauvegarde
+    fprintf(fichier, "t_save: %f\n",  partie->date - (double) temps);//Temp passé
     fprintf(fichier, "pseudo: %s\n",  partie->pseudo);//pseudo
     fprintf(fichier, "type: %d\n",  partie->type);//Type de niveau
     fprintf(fichier, "taille_score: %d\n",  partie->tailleResultats);//Taille des resultats
@@ -164,7 +164,7 @@ void sauvegardeGrilleChar(FILE * fichier, char **grille, int x, int y, char nom[
 void chargement(Partie * partie, char addresse[150])
 {
   FILE * fichier;
-  fichier = fopen ("test.bin","r");
+  fichier = fopen ("test.bin","rb");
 
   char lu = 0;
   char chaine [51];
@@ -309,5 +309,63 @@ void chargement(Partie * partie, char addresse[150])
 
     fclose (fichier);
   }
+
+}
+
+void enregistrerHistorique (Partie *partie)
+{
+    char date[50];
+    char heure[50];
+    time_t temps;
+    struct tm t_local;
+    // On récupère la date et l'heure actuelles.
+    time(&temps);
+    t_local=*localtime(&temps);
+    strftime(date, 50, "%d/%m/%y", &t_local);
+    strftime(heure, 50, "%X", &t_local);
+
+    FILE * fichier = NULL;
+
+    fichier = fopen("historique.log", "a+");
+
+    if (fichier==NULL) perror ("Erreur a l'ourverture du fichier");
+    else
+    {
+        fprintf(fichier, "%f~%s~%d~%d~%f\n", (double)temps, partie->pseudo, partie->type, partie->difficulte, partie->temp);
+    }
+}
+
+int lireHistorique (ElementHistorique *actuel, FILE * fichier, int * taille)
+{
+    ElementHistorique *nouveau = malloc(sizeof(*nouveau));
+
+    printf("%d\n", nouveau);
+
+    if( actuel == NULL)
+        actuel = nouveau;
+
+    if( fichier == NULL)
+        fichier = fopen("historique.log", "r");
+
+    fscanf(fichier,"%lf", &(nouveau->date));
+    fseek(fichier, 1, SEEK_CUR);
+    fscanf(fichier,"%[^~]s", nouveau->pseudo);
+    fseek(fichier, 1, SEEK_CUR);
+    fscanf(fichier,"%d", &(nouveau->type));
+    fseek(fichier, 1, SEEK_CUR);
+    fscanf(fichier,"%d", &(nouveau->difficulte));
+    fseek(fichier, 1, SEEK_CUR);
+    fscanf(fichier,"%lf", &(nouveau->temp));
+    fseek(fichier, 1, SEEK_CUR);
+
+    if(taille != 0)
+        ajouterElement(actuel, nouveau);
+
+    *taille = *taille +1;
+
+    if(fgetc(fichier) != EOF)
+        lireHistorique(nouveau, fichier, taille);
+
+    return actuel;
 
 }
