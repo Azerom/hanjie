@@ -5,5 +5,5 @@
 #include "structures.h"
 void affichage (Partie * niveau);
 void menuHead(char chaine[80]);
-void score();
+void score(Partie * niveau);
 #endif // FICHIERS_H_INCLUDED

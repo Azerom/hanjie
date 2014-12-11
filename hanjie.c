@@ -38,6 +38,7 @@ do{
         if (POS==-1||POS1==-1){
             system("clear");
             affichage(partie);
+            score(partie);
 }
 //Modifie la case demandée
     else {
@@ -51,6 +52,7 @@ do{
 }
     system("clear");
     affichage(partie);
+    score(partie);
 
 }
 

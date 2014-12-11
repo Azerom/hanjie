@@ -1,4 +1,5 @@
 #include "affichage.h"
+#include <time.h>
 
 void affichage (Partie * niveau)
 {
@@ -95,11 +96,249 @@ for (i = 0; i < niveau->actuel.x; i++)
 
 }
 
-void score()
+void score(Partie * niveau)
 {
 
+int h = 1;
+int m = 47;
+int s = 21;
 
+int i = 0;
+int j = 0;
+int k = 0;
+int z = 0;
 
+char lettre[9];
+sprintf(lettre,"%d:%d:%d", h, m, s);
 
+    for (i = 0; i < sizeof(lettre); i++)
+    {
+        printf("%c", lettre[i]);
+    }
+
+    printf("\n\n");
+    printf("\n\n");
+
+    int tab[5][3];
+    int temps[8][5][3];
+
+for (z = 0; z < 8; z++)
+{
+
+    switch (lettre[z])
+    {
+        case '0':
+        {
+        int tab [5][3] = {{1,1,1},{1,0,1},{1,0,1},{1,0,1},{1,1,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '1':
+        {
+        int tab [5][3] = {{0,0,1},{0,1,1},{0,0,1},{0,0,1},{0,0,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '2':
+        {
+        int tab [5][3] = {{1,1,1},{0,0,1},{1,1,1},{1,0,0},{1,1,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '3':
+        {
+        int tab [5][3] = {{1,1,1},{0,0,1},{1,1,1},{0,0,1},{1,1,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '4':
+        {
+        int tab [5][3] = {{0,0,1},{0,1,1},{1,0,1},{1,1,1},{0,0,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '5':
+        {
+        int tab [5][3] = {{1,1,1},{1,0,0},{1,1,1},{0,0,1},{1,1,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '6':
+        {
+        int tab [5][3] = {{1,0,0},{1,0,0},{1,1,1},{1,0,1},{1,1,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '7':
+        {
+        int tab [5][3] = {{1,1,1},{0,0,1},{0,0,1},{0,0,1},{0,0,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '8':
+        {
+        int tab [5][3] = {{1,1,1},{1,0,1},{1,1,1},{1,0,1},{1,1,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case '9':
+        {
+        int tab [5][3] = {{1,1,1},{1,0,1},{1,1,1},{0,0,1},{0,0,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        case ':':
+        {
+        int tab [5][3] = {{0,0,0},{0,1,0},{0,0,0},{0,1,0},{0,0,0}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+        break;
+
+        default:
+        {
+        int tab [5][3] = {{1,1,1},{1,0,1},{1,0,1},{1,0,1},{1,1,1}};
+            for (k =0; k < 8; k++)
+            {
+                for (i = 0; i < 5; i++)
+                {
+                    for (j = 0; j < 3; j++)
+                    {
+                        temps[z][i][j] = tab[i][j];
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+for (i = 0; i < 5; i++)
+    {
+        for (k = 0; k < 8; k++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                if (temps[k][i][j] == 1)
+                {
+                    printf("%c%c%c",0xE2, 0x96, 0x88);
+                }
+                else
+                {
+                    printf(" ");
+                }
+            }
+            printf(" ");
+        }
+        printf("\n");
+    }
 
 }
