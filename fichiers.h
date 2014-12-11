@@ -11,7 +11,7 @@ void lectureNiveau (char addresse [100], Cases * niveau); //Charge le niveau
 void sauvegarde (Partie *partie, char addresse[150]);
 void chargement(Partie * partie, char addresse[150]);
 void enregistrerHistorique (Partie *partie);
-void lireHistorique (ElementHistorique actuel);
+int lireHistorique (ElementHistorique *actuel, FILE * fichier);
 void lectureSautLigne( FILE * fichier);
 
 #endif // FICHIERS_H_INCLUDED

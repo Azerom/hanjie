@@ -3,6 +3,6 @@
 #include "structures.h"
 #include "fonctions.h"
 #include "affichage.h"
-void hanjie(Partie *partie);
+int hanjie(Partie *partie);
 
 #endif // FICHIERS_H_INCLUDED

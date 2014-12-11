@@ -37,7 +37,7 @@ struct Partie
 	Cases actuel; //Tableau remplis par l'utilisateur
 	char pseudo [50];
 	TailleResultats tailleResultats;
-	time_t temp;
+	double temp;
 	double date;
     TypeNiveau type;
 	Difficulte difficulte;
@@ -49,12 +49,13 @@ struct Partie
 typedef struct Partie Partie;
 struct ElementHistorique
 {
-	long date;
+	double date;
 	char pseudo [50];
-	TypeNiveau type;
-	Difficulte difficulte;
-	long temp;
+	int type;
+	int difficulte;
+	double temp;
 	struct ElementHistorique *suivant;
 };
 typedef struct ElementHistorique ElementHistorique;
+
 #endif // STRUCTURES_H_INCLUDED

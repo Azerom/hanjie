@@ -73,3 +73,13 @@ void calculIndice(Partie * partie)
     }
 
 }
+
+void ajouterElement(ElementHistorique *pile, ElementHistorique *nouveau)
+{
+    if (pile == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    nouveau->suivant = pile->suivant;
+    pile->suivant = nouveau;
+}

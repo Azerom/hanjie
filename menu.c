@@ -33,16 +33,18 @@ void menuPrincipal(Partie * partie)
 
                 break;
 
-                case 2 :
-                    system("clear");
-                    break;
+            case 2 :
 
-                case 3 :
-                    system("clear");
-                    break;
-                default :
-                    system("clear");
-                    break;
+                menuHistorique();
+
+                break;
+
+            case 3 :
+                system("clear");
+                break;
+            default :
+                system("clear");
+                break;
         }
 
     }while (a != 3);
@@ -50,7 +52,7 @@ void menuPrincipal(Partie * partie)
 
 void menuJeu(Partie * partie)
 {
-    int b, i, j;
+    int b, i, j, retour;
     char addresse[150];
     do
     {
@@ -100,16 +102,24 @@ void menuJeu(Partie * partie)
                 partie->actuel.grille = initialisationGrilleChar(partie->actuel.x, partie->actuel.y);
                 calculIndice(partie);
 
-
                 //Envoie a la fonction de jeu
                 system("clear");
-                hanjie(partie);
+                retour = hanjie(partie);
 
-                system("clear");
-                menuHead("Sauvegarde");
-                printf("Addresse de la save :\n");
-                scanf(" %s", addresse);
-                sauvegarde(partie, addresse);
+                partie->temp = time(NULL) - partie->date;
+                switch(retour)
+                {
+                    case 1:
+                        enregistrerHistorique(partie);
+                        break;
+                    case 2:
+                        system("clear");
+                        menuHead("Sauvegarde");
+                        printf("Addresse de la save :\n");
+                        scanf(" %s", addresse);
+                        sauvegarde(partie, addresse);
+                        break;
+                }
                 break;
 
             case 2 :
@@ -121,7 +131,25 @@ void menuJeu(Partie * partie)
                 scanf(" %s", addresse);
                 chargement(partie, addresse);
 
-                hanjie(partie);
+                partie->date = time(NULL) - partie->temp;
+
+                system("clear");
+                retour = hanjie(partie);
+
+                partie->temp = time(NULL) - partie->date;
+                switch(retour)
+                {
+                    case 1:
+                        enregistrerHistorique(partie);
+                        break;
+                    case 2:
+                        system("clear");
+                        menuHead("Sauvegarde");
+                        printf("Addresse de la save :\n");
+                        scanf(" %s", addresse);
+                        sauvegarde(partie, addresse);
+                        break;
+                }
             //sauvegarde();
                 break;
 
@@ -133,5 +161,74 @@ void menuJeu(Partie * partie)
         }
 
     }while (b != 3);
+
+}
+
+void menuHistorique()
+{
+    int a;
+
+    do
+    {
+
+        system("clear");
+        menuHead("Menu Historique");
+        printf("\t1=Trier par date\n\t2=Trier par score\n\t3=Trier par pseudo\n\t4=Quitter\n " );
+        scanf("\n%d",&a);
+
+        FILE * fichier = NULL;
+
+        switch (a)
+        {
+            case 1 :
+                system("clear");
+                menuHead("Historique");
+                fichier = fopen("historique.log", "r");
+                ElementHistorique * historique = NULL;
+                historique = lireHistorique(historique, fichier);
+                afficherHistorique(historique);
+                SystemPause();
+                break;
+
+            case 2 :
+
+
+                break;
+
+            case 3 :
+                system("clear");
+                break;
+            case 4 :
+
+                break;
+            default :
+                system("clear");
+                break;
+        }
+
+    }while (a != 4);
+}
+void afficherHistorique(ElementHistorique * historique)
+{
+    time_t date;
+    char tabDifficulte[3][50] = {"Facile", "Moyen", "Difficile"};
+    while(historique != NULL)
+    {
+        date = historique->date;
+        char format[128];
+        struct tm t_local;
+        // On récupère la date et l'heure actuelles.
+
+        t_local=*localtime(&date);
+        strftime(format, 50, "%d/%m/%y %X", &t_local);
+        printf("%s", format);
+
+        date = historique->temp - 3600;
+        t_local=*localtime(&date);
+        strftime(format, 50, "%X", &t_local);
+        printf(" : %s en %s, finit en %s\n", historique->pseudo, tabDifficulte[historique->difficulte-1], format);
+
+        historique = historique->suivant;
+    }
 
 }
