@@ -1,39 +1,39 @@
 #include "affichage.h"
 #include <time.h>
 
-void affichage (Partie * niveau)
+void affichage (Partie * niveau) //première fonction qui permet l'affichage de la grille, des cases, des lignes, des colonnes
 {
 
-    int i,j,k;
+    int i,j,k; //Initialisation des variables
 
     system("clear");
     menuHead("Hanjie n°1");
 
-    for(j = 0; j < niveau->nbIndiceMaxLigne; j++)
-        {
-            printf("  ");
-        }
-        printf("     ");
+    for(j = 0; j < niveau->nbIndiceMaxLigne; j++) //Première boucle for pour afficher les lettres désignant les différentes colonnes au dessus du hanjie
+    {
+        printf("  ");
+    }
+    printf("     ");
 
-for (i = 0; i < niveau->actuel.x; i++)
-{
+    for (i = 0; i < niveau->actuel.x; i++)
+    {
 
         printf("\x1b[36m%c\x1b[0m   ",i+65);
 
-}
+    } //Fin boucle for pour afficher les lettres désignant les différentes colonnes au dessus du hanjie
 
-    printf("\n");
+    printf("\n"); //Les différents printf("\n") servent à passer des lignes donc à aérer pour plus d'esthétique
 
-    for (i = 0; i < niveau->nbIndiceMaxColonne; i++)
+    for (i = 0; i < niveau->nbIndiceMaxColonne; i++) //Début deuxième boucle for, double imbriquée, qui parcourt tout le tableau et espace les différentes cases, et permet également d'espacer la grille pour qu'elle ne soit pas proche du bord gauche
     {
-                printf("    ");
+        printf("    ");
 
         for (j = 0; j < niveau->nbIndiceMaxLigne; j++)
         {
-                printf("  ");
+            printf("  ");
         }
-            for (j = 0; j < niveau->actuel.x; j++)
-            {
+        for (j = 0; j < niveau->actuel.x; j++)
+        {
             if(niveau->indiceColonne[j][i] == 0)
             {
                 printf("    ");
@@ -44,12 +44,12 @@ for (i = 0; i < niveau->actuel.x; i++)
             }
         }
         printf("\n");
-    }
+    } //Fin deuxième boucle for
 
-    for (i = 0; i < niveau->actuel.y; i++)
+    for (i = 0; i < niveau->actuel.y; i++) //Troisième boucle for , double imbriquée aussi
     {
 
-        printf("\x1b[36m%2d |\x1b[0m ",i+1);
+        printf("\x1b[36m%2d |\x1b[0m ",i+1); //affiche les chiffres désignant les différentes lignes à gauche du hanjie
 
         //test a partir d'ici
         for(k = 0; k < niveau->nbIndiceMaxLigne; k++)
@@ -64,7 +64,7 @@ for (i = 0; i < niveau->actuel.x; i++)
             }
         }
         //fin de test
-        for(j = 0; j < niveau->actuel.x; j++)
+        for(j = 0; j < niveau->actuel.x; j++) //boucle for qui parcourera les 0 du tableau et les transformera en case grisées et les 1 en case vide
         {
             if (niveau->actuel.grille[i][j] == '1')
             {
@@ -75,7 +75,7 @@ for (i = 0; i < niveau->actuel.x; i++)
             {
                 printf("%c%c%c | ", 0xE2, 0x96, 0xA1);
             }
-        }
+        } //fin boucle for
         printf("\n");
         for(j = 0; j < niveau->nbIndiceMaxLigne; j++)
         {
@@ -84,244 +84,243 @@ for (i = 0; i < niveau->actuel.x; i++)
 
         printf("    ");
 
-        for(j = 0; j < niveau->actuel.x; j++)
+        for(j = 0; j < niveau->actuel.x; j++) //boucle for qui affichera un tableau grâce à des caractères UTF-8 entourant toutes les cases
         {
             printf("%c%c%c", 0xE2, 0x94, 0x80);
             printf("%c%c%c", 0xE2, 0x94, 0x80);
             printf("%c%c%c", 0xE2, 0x94, 0x80);
             printf("%c%c%c", 0xE2, 0x94, 0xBC);
-        }
+        } //fin boucle for
         printf("\n");
     }
 
-}
+} //fin première fonction
 
-void score(Partie * niveau)
+void score(Partie * niveau) //première fonction qui permettra l'affichage du score en heure:minutes:secondes lorsque le hanjie sera correctement fini et réussi
 {
 
-int h = 1;
-int m = 47;
-int s = 21;
+    int h = 14; //initialisation des variables
+    int m = 15;
+    int s = 21;
 
-int i = 0;
-int j = 0;
-int k = 0;
-int z = 0;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int z = 0;
 
-char lettre[9];
-sprintf(lettre,"%d:%d:%d", h, m, s);
+    char lettre[9];
+    sprintf(lettre,"%d:%d:%d", h, m, s); //pour vérification...
 
-    for (i = 0; i < sizeof(lettre); i++)
-    {
-        printf("%c", lettre[i]);
-    }
+
+
+        for (i = 0; i < sizeof(lettre); i++)
+        {
+            printf("%c", lettre[i]);
+        }
 
     printf("\n\n");
     printf("\n\n");
 
-    int tab[5][3];
+    int tab[5][3]; //initialisation des tableaux -> tab à deux dimensions et temps à trois dimensions
     int temps[8][5][3];
 
-for (z = 0; z < 8; z++)
-{
+    if (h < 10 && m < 10 && s < 10){sprintf (lettre,"0%d:0%d:0%d",h,m,s);} // lors de l'affichage du score, ces if, else if et else empêchent le dépassement de tableau
+    else if (h < 10 && m < 10 && s >= 10){sprintf (lettre,"0%d:0%d:%d",h,m,s);}
+    else if (h < 10 && m >= 10 && s < 10){sprintf (lettre,"0%d:%d:0%d",h,m,s);}
+    else if (h < 10 && m >= 10 && s >= 10){sprintf (lettre,"0%d:%d:%d",h,m,s);}
+    else if (h >= 10 && m < 10 && s < 10){sprintf (lettre,"%d:0%d:0%d",h,m,s);}
+    else if (h >= 10 && m < 10 && s >= 10){sprintf (lettre,"%d:0%d:%d",h,m,s);}
+    else if (h >= 10 && m >= 10 && s < 10){sprintf (lettre,"%d:%d:0%d",h,m,s);}
+    else {sprintf (lettre,"%d:%d:%d",h,m,s);} //fin différents if else if et else qui empêchent le dépassement de tableau
 
-    switch (lettre[z])
+    for (z = 0; z < 8; z++) //première boucle for
     {
-        case '0':
+        switch (lettre[z]) // switch case qui affichera les chiffres à l'aide de plusieurs 0 et plusieurs 1
         {
-        int tab [5][3] = {{1,1,1},{1,0,1},{1,0,1},{1,0,1},{1,1,1}};
-            for (k =0; k < 8; k++)
+            case '0':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,1,1},{1,0,1},{1,0,1},{1,0,1},{1,1,1}}; //affiche un 0
+                for (k =0; k < 8; k++) //triple boucle for car tableau à trois dimensions
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '1':
-        {
-        int tab [5][3] = {{0,0,1},{0,1,1},{0,0,1},{0,0,1},{0,0,1}};
-            for (k =0; k < 8; k++)
+            case '1':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{0,0,1},{0,1,1},{0,0,1},{0,0,1},{0,0,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '2':
-        {
-        int tab [5][3] = {{1,1,1},{0,0,1},{1,1,1},{1,0,0},{1,1,1}};
-            for (k =0; k < 8; k++)
+            case '2':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,1,1},{0,0,1},{1,1,1},{1,0,0},{1,1,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '3':
-        {
-        int tab [5][3] = {{1,1,1},{0,0,1},{1,1,1},{0,0,1},{1,1,1}};
-            for (k =0; k < 8; k++)
+            case '3':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,1,1},{0,0,1},{1,1,1},{0,0,1},{1,1,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '4':
-        {
-        int tab [5][3] = {{0,0,1},{0,1,1},{1,0,1},{1,1,1},{0,0,1}};
-            for (k =0; k < 8; k++)
+            case '4':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{0,0,1},{0,1,1},{1,0,1},{1,1,1},{0,0,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '5':
-        {
-        int tab [5][3] = {{1,1,1},{1,0,0},{1,1,1},{0,0,1},{1,1,1}};
-            for (k =0; k < 8; k++)
+            case '5':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,1,1},{1,0,0},{1,1,1},{0,0,1},{1,1,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '6':
-        {
-        int tab [5][3] = {{1,0,0},{1,0,0},{1,1,1},{1,0,1},{1,1,1}};
-            for (k =0; k < 8; k++)
+            case '6':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,0,0},{1,0,0},{1,1,1},{1,0,1},{1,1,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '7':
-        {
-        int tab [5][3] = {{1,1,1},{0,0,1},{0,0,1},{0,0,1},{0,0,1}};
-            for (k =0; k < 8; k++)
+            case '7':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,1,1},{0,0,1},{0,0,1},{0,0,1},{0,0,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '8':
-        {
-        int tab [5][3] = {{1,1,1},{1,0,1},{1,1,1},{1,0,1},{1,1,1}};
-            for (k =0; k < 8; k++)
+            case '8':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,1,1},{1,0,1},{1,1,1},{1,0,1},{1,1,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case '9':
-        {
-        int tab [5][3] = {{1,1,1},{1,0,1},{1,1,1},{0,0,1},{0,0,1}};
-            for (k =0; k < 8; k++)
+            case '9':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{1,1,1},{1,0,1},{1,1,1},{0,0,1},{0,0,1}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        case ':':
-        {
-        int tab [5][3] = {{0,0,0},{0,1,0},{0,0,0},{0,1,0},{0,0,0}};
-            for (k =0; k < 8; k++)
+            case ':':
             {
-                for (i = 0; i < 5; i++)
+                int tab [5][3] = {{0,0,0},{0,1,0},{0,0,0},{0,1,0},{0,0,0}};
+                for (k =0; k < 8; k++)
                 {
-                    for (j = 0; j < 3; j++)
+                    for (i = 0; i < 5; i++)
                     {
-                        temps[z][i][j] = tab[i][j];
+                        for (j = 0; j < 3; j++)
+                        {
+                            temps[z][i][j] = tab[i][j];
+                        }
                     }
                 }
             }
-        }
-        break;
+            break;
 
-        default:
-        {
-        int tab [5][3] = {{1,1,1},{1,0,1},{1,0,1},{1,0,1},{1,1,1}};
-            for (k =0; k < 8; k++)
+            default:
             {
-                for (i = 0; i < 5; i++)
-                {
-                    for (j = 0; j < 3; j++)
-                    {
-                        temps[z][i][j] = tab[i][j];
-                    }
-                }
+                printf("Erreur");
             }
-        }
-    }
+        } //fin switch case
+    } //fin première boucle for
 
-}
-
-for (i = 0; i < 5; i++)
+    for (i = 0; i < 5; i++) //dernière boucle for qui remplacera les 1 en case blanche et les 0 en espace, cela permettra d'afficher des chiffres comme on voulait
     {
         for (k = 0; k < 8; k++)
         {
@@ -339,6 +338,5 @@ for (i = 0; i < 5; i++)
             printf(" ");
         }
         printf("\n");
-    }
-
+    } //fin deuxième boucle for
 }

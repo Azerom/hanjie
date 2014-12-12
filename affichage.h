@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "structures.h"
-void affichage (Partie * niveau);
-void menuHead(char chaine[80]);
-void score(Partie * niveau);
+void affichage (Partie * niveau); //charge l'affichage que l'on a créé dans le .c
+void menuHead(char chaine[80]); //permet d'avoir le menu créé par un autre membre du groupe
+void score(Partie * niveau); //charge l'affichage du score une fois le hanjie terminé
 #endif // FICHIERS_H_INCLUDED
