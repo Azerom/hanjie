@@ -164,7 +164,7 @@ void sauvegardeGrilleChar(FILE * fichier, char **grille, int x, int y, char nom[
 void chargement(Partie * partie, char addresse[150])
 {
   FILE * fichier;
-  fichier = fopen (addresse,"r");
+  fichier = fopen (addresse,"r");//On ouvre le fichier à l'addresse demandé
 
   char lu = 0;
   char chaine [51];
@@ -177,77 +177,56 @@ void chargement(Partie * partie, char addresse[150])
     {
         fseek(fichier, -1, SEEK_CUR);
 
+        while(lu = fgetc(fichier) == ' ');
 
-        if (lu != '#')
+        if (lu != '#' && lu !='\n')
         {
             fseek(fichier, -1, SEEK_CUR);
 
             fscanf(fichier, "%50s", chaine);
 
             if(!strcmp(chaine, "t_debut:"))
-            {
                 fscanf(fichier, " %lf", &(partie->date));
-                printf("%f\n", partie->date);
-            }
-            if(!strcmp(chaine, "t_save:"))
-            {
+            else if(!strcmp(chaine, "t_save:"))
                 fscanf(fichier, " %lf", &(partie->temp));
-                printf("%f\n", partie->temp);
-            }
-            if(!strcmp(chaine, "pseudo:"))
-            {
+            else if(!strcmp(chaine, "pseudo:"))
                 fscanf(fichier, " %s", &(partie->pseudo));
-                printf("%s\n", partie->pseudo);
-            }
-            if(!strcmp(chaine, "type:"))
-            {
+            else if(!strcmp(chaine, "type:"))
                 fscanf(fichier, " %d", &(partie->type));
-                printf("%d\n", partie->type);
-            }
-            if(!strcmp(chaine, "taille_score:"))
-            {
+            else if(!strcmp(chaine, "taille_score:"))
                 fscanf(fichier, " %d", &(partie->tailleResultats));
-                printf("%d\n", partie->tailleResultats);
-            }
-            if(!strcmp(chaine, "difficultee:"))
-            {
+            else if(!strcmp(chaine, "difficultee:"))
                 fscanf(fichier, " %d", &(partie->difficulte));
-                printf("%d\n", partie->difficulte);
-            }
-            if(!strcmp(chaine, "grille_pattern:"))
+            else if(!strcmp(chaine, "grille_pattern:"))
             {
                 fscanf(fichier, " %d %d", &(partie->pattern.y), &(partie->pattern.x));
-                printf("%d %d\n", partie->pattern.y, partie->pattern.x);
                 partie->pattern.grille=initialisationGrilleChar(partie->pattern.x,partie->pattern.y);
                 grilleLu = 1;
                 j = 0;
             }
-            if(!strcmp(chaine, "grille_actuel:"))
+            else if(!strcmp(chaine, "grille_actuel:"))
             {
                 fscanf(fichier, " %d %d", &(partie->actuel.y), &(partie->actuel.x));
-                printf("%d %d\n", partie->actuel.y, partie->actuel.x);
                 partie->actuel.grille=initialisationGrilleChar(partie->actuel.x,partie->actuel.y);
                 grilleLu = 2;
                 j = 0;
             }
-            if(!strcmp(chaine, "indices_lignes:"))
+            else if(!strcmp(chaine, "indices_lignes:"))
             {
                 fscanf(fichier, " %*d %d", &(partie->nbIndiceMaxLigne));
-                printf("%d\n", partie->nbIndiceMaxLigne);
                 partie->indiceLigne=initialisationGrilleInt(partie->nbIndiceMaxLigne,partie->pattern.y);
                 grilleLu = 3;
                 j = 0;
             }
-            if(!strcmp(chaine, "indices_colonnes:"))
+            else if(!strcmp(chaine, "indices_colonnes:"))
             {
                 fscanf(fichier, " %*d %d", &(partie->nbIndiceMaxColonne));
-                printf("%d\n", partie->nbIndiceMaxColonne);
                 partie->indiceColonne=initialisationGrilleInt(partie->nbIndiceMaxColonne,partie->pattern.x);
                 grilleLu = 4;
                 j = 0;
             }
 
-            if(chaine[0] >= '0' && chaine[0] <= '9')
+            else if(chaine[0] >= '0' && chaine[0] <= '9')
             {
                 lu = chaine[0];
                 switch (grilleLu)
