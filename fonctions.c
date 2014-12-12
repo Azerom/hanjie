@@ -75,7 +75,7 @@ void calculIndice(Partie * partie)
 }
 
 void ajouterElement(ElementHistorique *pile, ElementHistorique *nouveau)
-{
+{//Permet d'inserer un element a la suite d'un autre
     if (pile == NULL)
     {
         exit(EXIT_FAILURE);
