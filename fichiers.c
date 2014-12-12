@@ -107,13 +107,13 @@ void sauvegarde(Partie * partie, char addresse[150])
     date=*localtime(&temps);
     strftime(format, 50, "%d/%m/%y à %X", &date);
 
-    fichier = fopen(addresse, "wb");
+    fichier = fopen(addresse, "w");
     fprintf(fichier, "# Fichier de sauvegarde du jeu exia.hanjie, générée le %s\n", format);
     fprintf(fichier, "# Toute modification peut mener à la corruption de la sauvegarde\n");
     fprintf(fichier, "#--------------------------------------------------------------------\n");
 
     fprintf(fichier, "t_debut: %f\n",  partie->date);//Date de début
-    fprintf(fichier, "t_save: %f\n",  partie->date - (double) temps);//Temp passé
+    fprintf(fichier, "t_save: %f\n",  partie->temp);//Temp passé
     fprintf(fichier, "pseudo: %s\n",  partie->pseudo);//pseudo
     fprintf(fichier, "type: %d\n",  partie->type);//Type de niveau
     fprintf(fichier, "taille_score: %d\n",  partie->tailleResultats);//Taille des resultats
@@ -335,17 +335,9 @@ void enregistrerHistorique (Partie *partie)
     }
 }
 
-int lireHistorique (ElementHistorique *actuel, FILE * fichier, int * taille)
+int lireHistorique (ElementHistorique *actuel, FILE * fichier)
 {
     ElementHistorique *nouveau = malloc(sizeof(*nouveau));
-
-    printf("%d\n", nouveau);
-
-    if( actuel == NULL)
-        actuel = nouveau;
-
-    if( fichier == NULL)
-        fichier = fopen("historique.log", "r");
 
     fscanf(fichier,"%lf", &(nouveau->date));
     fseek(fichier, 1, SEEK_CUR);
@@ -357,14 +349,22 @@ int lireHistorique (ElementHistorique *actuel, FILE * fichier, int * taille)
     fseek(fichier, 1, SEEK_CUR);
     fscanf(fichier,"%lf", &(nouveau->temp));
     fseek(fichier, 1, SEEK_CUR);
+    nouveau->suivant = NULL;
 
-    if(taille != 0)
+    if( actuel == NULL)
+    {
+        actuel = nouveau;
+    }
+    else
+    {
         ajouterElement(actuel, nouveau);
-
-    *taille = *taille +1;
+    }
 
     if(fgetc(fichier) != EOF)
-        lireHistorique(nouveau, fichier, taille);
+    {
+        fseek(fichier, -1, SEEK_CUR);
+        lireHistorique(nouveau, fichier);
+    }
 
     return actuel;
 
