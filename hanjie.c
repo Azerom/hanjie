@@ -5,7 +5,8 @@ int hanjie (Partie *partie)
 
 
     char posCol,posLig;
-    int i,j,g,POS,POS1,POS2,Vic, sortie = 0;
+    int i,j,g,POS,POS1,POS2,Vic;
+    int a=0;
     int posCol1,posLig1;
     char position1[4];
     char lettreM[16]= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'};
@@ -28,13 +29,13 @@ int hanjie (Partie *partie)
 
         if(position1[0]=='E'&&position1[1]=='X'&&position1[2]=='I'&&position1[3]=='T')
         {
-            sortie = 1;
+            menuJeu(partie);
 
         }
         if(position1[0]=='S'&&position1[1]=='A'&&position1[2]=='V'&&position1[3]=='E')
         {
 
-            sortie = 2;
+            sauvegarde(partie, "  ");
         }
         if(position1[0]=='V'&&position1[1]=='E'&&position1[2]=='R'&&position1[3]=='I')
         {
@@ -114,60 +115,45 @@ int hanjie (Partie *partie)
             }
         }
 
-        for (i=0; i<partie->actuel.x; i++)
+
+
+
+    }
+
+    while(verification(partie));
+    system("clear");
+    printf ("                     \n\n\n\n\n\n\n\n \n\n                          Bravo vous avez reussi !!\n\n\n\n");
+    SystemPause();
+
+
+}
+int verification(Partie *partie){
+
+int i,j,a=0;
+ for (i=0; i<partie->actuel.x; i++)
         {
-            for (j=0; j<partie->actuel.x; j++)
+            for (j=0; j<partie->actuel.y; j++)
             {
 
-                if (partie->actuel.grille[i][j]==partie->pattern.grille[i][j])
-                    resultat[i][j]=1;
+                if (partie->actuel.grille[i][j]!=partie->pattern.grille[i][j])
+                    a=1;
 
 
-                else
-                    resultat[i][j]=-6;
+
 
             }
 
         }
 
-
-        POS2=-1;
-        for (i=0; (i<partie->actuel.x)||(POS2==-1); i++)
-        {
-            for (j=0; (j<partie->actuel.x)||(POS2==-1); j++)
-            {
-                if (resultat[i][j]==-6)
-
-                    POS2=1;
-
-
-            }
-        }
-
-        if (POS2==-2)
-        {
-
-            printf("Vous avez gagne");
-            SystemPause();
-        }
-        else
-        {
-            system("clear");
-            affichage(partie);
-
-        }
-
-
+    return a;
 
 
 
 
     }
 
-    while(sortie == 0);
-    return sortie;
 
-}
+
 
 
 
