@@ -107,7 +107,7 @@ void sauvegarde(Partie * partie, char addresse[150])
     date=*localtime(&temps);
     strftime(format, 50, "%d/%m/%y à %X", &date);
 
-    fichier = fopen(addresse, "w");
+    fichier = fopen(addresse, "w+");
     fprintf(fichier, "# Fichier de sauvegarde du jeu exia.hanjie, générée le %s\n", format);
     fprintf(fichier, "# Toute modification peut mener à la corruption de la sauvegarde\n");
     fprintf(fichier, "#--------------------------------------------------------------------\n");
@@ -164,7 +164,7 @@ void sauvegardeGrilleChar(FILE * fichier, char **grille, int x, int y, char nom[
 void chargement(Partie * partie, char addresse[150])
 {
   FILE * fichier;
-  fichier = fopen ("test.bin","rb");
+  fichier = fopen (addresse,"r");
 
   char lu = 0;
   char chaine [51];

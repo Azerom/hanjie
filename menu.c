@@ -56,6 +56,7 @@ void menuJeu(Partie * partie)
     char b;
     int retour, alea;
     char addresse[150] = "niveaux/";
+    char addresseSave[150];
     char difficulteAdresse[3] [50] = {"facile/", "moyen/", "difficile/"};
     char fichierAdresses[3][50] = { "1.pbm", "2.pbm", "3.pbm"};
     do
@@ -102,41 +103,26 @@ void menuJeu(Partie * partie)
 
             //Choix aléatoire du niveau à réaliser
             partie->date = time(NULL);
+            printf("--%f--", partie->date);
+            SystemPause();
             srand(partie->date);
             alea = rand()%2;
             strcat(addresse, difficulteAdresse[partie->difficulte-1]);
             strcat(addresse, fichierAdresses[alea]);
 
+            //Lecture du niveau
             lectureNiveau(addresse, &(partie->pattern));
+
+            //Initialisation de la grille actuel
             partie->actuel.x = partie->pattern.x;
             partie->actuel.y = partie->pattern.y;
             partie->actuel.grille = initialisationGrilleChar(partie->actuel.x, partie->actuel.y);
+
+            //Calcul des indices
             calculIndice(partie);
 
             //Envoie a la fonction de jeu
-            system("clear");
-            retour = hanjie(partie);
-
-            partie->temp = time(NULL) - partie->date;
-            time_t temps;
-                struct tm date;
-            switch(retour)
-            {
-            case 2:
-                system("clear");
-                menuHead("Sauvegarde");
-                printf("Addresse de la save :\n");
-                scanf(" %s", addresse);
-                sauvegarde(partie, addresse);
-                break;
-            case 3:
-
-                date=*gmtime(&temps);
-                score(date.tm_hour, date.tm_min, date.tm_sec);
-                enregistrerHistorique(partie);
-                SystemPause();
-                break;
-            }
+            menuPartie(partie);
             break;
 
         case '2' :
@@ -145,29 +131,12 @@ void menuJeu(Partie * partie)
             viderTampon();
             menuHead("Chargement partie");
             printf("Addresse de la save :\n");
-            scanf(" %s", addresse);
-            chargement(partie, addresse);
-
+            scanf("%s", addresseSave);
+            chargement(partie, addresseSave);
+            SystemPause();
             partie->date = time(NULL) - partie->temp;
 
-            system("clear");
-            retour = hanjie(partie);
-
-            partie->temp = time(NULL) - partie->date;
-            switch(retour)
-            {
-            case 2:
-                system("clear");
-                menuHead("Sauvegarde");
-                printf("Addresse de la save :\n");
-                scanf(" %s", addresse);
-                sauvegarde(partie, addresse);
-                break;
-            case 3:
-
-                enregistrerHistorique(partie);
-                break;
-            }
+            menuPartie(partie);
             //sauvegarde();
             break;
 
@@ -251,4 +220,27 @@ void afficherHistorique(ElementHistorique * historique)
         historique = historique->suivant;
     }
 
+}
+void menuPartie(Partie * partie)
+{
+    system("clear");
+    int retour = hanjie(partie);
+    char addresse [150];
+    partie->temp = time(NULL) - partie->date;
+
+    switch(retour)
+    {
+    case 2:
+        system("clear");
+        menuHead("Sauvegarde");
+        printf("Addresse de la save :\n");
+        scanf(" %s", addresse);
+        sauvegarde(partie, addresse);
+        break;
+    case 3:
+        score(partie);
+        enregistrerHistorique(partie);
+        SystemPause();
+        break;
+    }
 }

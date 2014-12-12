@@ -96,8 +96,12 @@ void affichage (Partie * niveau) //première fonction qui permet l'affichage de 
 
 } //fin première fonction
 
-void score(int h, int m, int s) //première fonction qui permettra l'affichage du score en heure:minutes:secondes lorsque le hanjie sera correctement fini et réussi
+void score(Partie * partie) //première fonction qui permettra l'affichage du score en heure:minutes:secondes lorsque le hanjie sera correctement fini et réussi
 {
+    int h = partie->temp / 3600;
+    int s = (int)partie->temp % 3600;
+    int m = s / 60;
+    s = s % 60;
 
     int i = 0;
     int j = 0;

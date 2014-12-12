@@ -5,5 +5,5 @@
 #include "structures.h"
 void affichage (Partie * niveau); //charge l'affichage que l'on a créé dans le .c
 void menuHead(char chaine[80]); //permet d'avoir le menu créé par un autre membre du groupe
-void score(int h, int m, int s); //charge l'affichage du score une fois le hanjie terminé
+void score(Partie * partie); //charge l'affichage du score une fois le hanjie terminé
 #endif // FICHIERS_H_INCLUDED
