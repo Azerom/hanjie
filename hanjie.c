@@ -41,7 +41,7 @@ int hanjie (Partie *partie)
             etat=2;
         }
 
-//Recherche pour savoir à quelle position se trouve la premiere lettre (en majuscule ou minuscule)//ĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵ
+//Recherche pour savoir à quelle position se trouve la premiere lettre (en majuscule ou minuscule)
 
         POS= -1;
         for (i=0; (i<partie->actuel.x)&&(POS==-1); i++)
@@ -63,28 +63,31 @@ int hanjie (Partie *partie)
 
             }
         }
-//Si le la deuxieme coordonnée est une dizaine
-        else if(position1[1]=='1'&&position1[2]=='0'&&partie->actuel.y>9)
+        if (position1[1]=='1'&&position1[2]=='0'&&partie->actuel.y>=10)
         {
-            POS1=9;
+
+        POS1=9;
+
         }
-        else if(position1[1]=='1'&&position1[2]=='1'&&partie->actuel.y>9)
+//Si le la deuxieme coordonnée est une dizaine
+
+        else if(position1[1]=='1'&&position1[2]=='1'&&partie->actuel.y>10)
         {
             POS1=10;
         }
-        else if(position1[1]=='1'&&position1[2]=='2'&&partie->actuel.y>9)
+        else if(position1[1]=='1'&&position1[2]=='2'&&partie->actuel.y>10)
         {
             POS1=11;
         }
-        else if(position1[1]=='1'&&position1[2]=='3'&&partie->actuel.y>9)
+        else if(position1[1]=='1'&&position1[2]=='3'&&partie->actuel.y>10)
         {
             POS1=12;
         }
-        else if(position1[1]=='1'&&position1[2]=='4'&&partie->actuel.y>9)
+        else if(position1[1]=='1'&&position1[2]=='4'&&partie->actuel.y>10)
         {
             POS1=13;
         }
-        else if(position1[1]=='1'&&position1[2]=='5'&&partie->actuel.y>9)
+        else if(position1[1]=='1'&&position1[2]=='5'&&partie->actuel.y>10)
         {
             POS1=14;
         }
