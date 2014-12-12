@@ -5,19 +5,22 @@ int hanjie (Partie *partie)
 
 
     char posCol,posLig;
-    int i,j,g,POS,POS1,POS2,Vic, sortie = 0;
+    int i,j,g,POS,POS1,POS2;
+    int a=0;
     int posCol1,posLig1;
     char position1[4];
     char lettreM[16]= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'};
     char lettrem[16]= {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'};
     char chiffre[16]= {'1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'};
-    char dizaine[3];
-    int resultat[5][5];
+    int etat=0;
+
     do
     {
+        //Recupere les coordonnées
         affichage(partie);
         printf("Quelle case voulez vous selectionner ? (pour plus d'information taper HELP) ");
         scanf ("%s",&position1);
+        //Affiche les aides
         if (position1[0]=='H'&&position1[1]=='E'&&position1[2]=='L'&&position1[3]=='P')
         {
 
@@ -25,22 +28,19 @@ int hanjie (Partie *partie)
             SystemPause();
             affichage(partie);
         }
-
+        //Quitte la partie
         if(position1[0]=='E'&&position1[1]=='X'&&position1[2]=='I'&&position1[3]=='T')
         {
-            sortie = 1;
+            etat=1;
 
         }
+        //Sauvegarde la partie
         if(position1[0]=='S'&&position1[1]=='A'&&position1[2]=='V'&&position1[3]=='E')
         {
 
-            sortie = 2;
+            etat=2;
         }
-        if(position1[0]=='V'&&position1[1]=='E'&&position1[2]=='R'&&position1[3]=='I')
-        {
 
-
-        }
 //Recherche pour savoir à quelle position se trouve la premiere lettre (en majuscule ou minuscule)//
 
         POS= -1;
@@ -63,7 +63,7 @@ int hanjie (Partie *partie)
 
             }
         }
-
+//Si le la deuxieme coordonnée est une dizaine
         else if(position1[1]=='1'&&position1[2]=='0')
         {
             POS1=9;
@@ -115,60 +115,49 @@ int hanjie (Partie *partie)
             }
         }
 
-        for (i=0; i<partie->actuel.x; i++)
-        {
-            for (j=0; j<partie->actuel.x; j++)
-            {
-
-                if (partie->actuel.grille[i][j]==partie->pattern.grille[i][j])
-                    resultat[i][j]=1;
-
-
-                else
-                    resultat[i][j]=-6;
-
-            }
-
-        }
-
-
-        POS2=-1;
-        for (i=0; (i<partie->actuel.x)||(POS2==-1); i++)
-        {
-            for (j=0; (j<partie->actuel.x)||(POS2==-1); j++)
-            {
-                if (resultat[i][j]==-6)
-
-                    POS2=1;
-
-
-            }
-        }
-
-        if (POS2==-2)
-        {
-
-            printf("Vous avez gagne");
-            SystemPause();
-        }
-        else
-        {
-            system("clear");
-            affichage(partie);
-
-        }
-
-
-
 
 
 
     }
+//Sortie du do si reussite du jeu ou alors si je joueur le demande
+    while(verification(partie)&&etat==0);
 
-    while(sortie == 0);
-    return sortie;
+    if (etat==2)
+    return etat;
+    if (etat==1)
+    menuJeu(partie);
+    else  { system("clear");
+    printf ("                     \n\n\n\n\n\n\n\n \n\n                          Bravo vous avez reussi !!\n\n\n\n");
+    SystemPause();}
+}
+int verification(Partie *partie)
+{
+//La fonction parcourt le tableau et verifie si les deux grilles sont differentes
+    int i,j,a=0;
+    for (i=0; i<partie->actuel.x; i++)
+    {
+        for (j=0; j<partie->actuel.y; j++)
+        {
+
+            if (partie->actuel.grille[i][j]!=partie->pattern.grille[i][j])
+                a=1;
+
+
+
+
+        }
+
+    }
+
+    return a;
+
+
+
 
 }
+
+
+
 
 
 
