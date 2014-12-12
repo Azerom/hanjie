@@ -41,7 +41,7 @@ int hanjie (Partie *partie)
             etat=2;
         }
 
-//Recherche pour savoir à quelle position se trouve la premiere lettre (en majuscule ou minuscule)//
+//Recherche pour savoir à quelle position se trouve la premiere lettre (en majuscule ou minuscule)//ĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵĵ
 
         POS= -1;
         for (i=0; (i<partie->actuel.x)&&(POS==-1); i++)
@@ -125,10 +125,11 @@ int hanjie (Partie *partie)
     if (etat==2)
     return etat;
     if (etat==1)
-    menuJeu(partie);
+    return etat;
     else  { system("clear");
     printf ("                     \n\n\n\n\n\n\n\n \n\n                          Bravo vous avez reussi !!\n\n\n\n");
     SystemPause();}
+    return 3;
 }
 int verification(Partie *partie)
 {
