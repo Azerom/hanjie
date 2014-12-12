@@ -11,6 +11,8 @@
 
 void menuHead(char chaine[80]);
 void menuPrincipal(Partie * partie);
+void menuHistorique();
 void menuJeu(Partie * partie);
+void afficherHistorique(ElementHistorique * historique);
 
 #endif // MENU_H_INCLUDED

@@ -9,5 +9,6 @@
 void SystemPause();
 void viderTampon();
 void calculIndice(Partie * partie);
+void ajouterElement(ElementHistorique *pile, ElementHistorique *nouveau);
 
 #endif // FICHIERS_H_INCLUDED

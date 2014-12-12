@@ -4,5 +4,5 @@
 #include "fonctions.h"
 #include "affichage.h"
 int hanjie(Partie *partie);
-
+int verification(Partie *partie);
 #endif // FICHIERS_H_INCLUDED

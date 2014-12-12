@@ -4,14 +4,11 @@ int hanjie (Partie *partie)
 {
 
 
-    char posCol,posLig;
-    int i,j,g,POS,POS1,POS2;
-    int a=0;
-    int posCol1,posLig1;
+    int i,j,POS,POS1;
     char position1[4];
     char lettreM[16]= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'};
     char lettrem[16]= {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'};
-    char chiffre[16]= {'1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'};
+    char chiffre[9]= {'1','2','3','4','5','6','7','8','9'};
     int etat=0;
 
     do
@@ -19,7 +16,7 @@ int hanjie (Partie *partie)
         //Recupere les coordonnées
         affichage(partie);
         printf("Quelle case voulez vous selectionner ? (pour plus d'information taper HELP) ");
-        scanf ("%s",&position1);
+        scanf ("%s",position1);
         //Affiche les aides
         if (position1[0]=='H'&&position1[1]=='E'&&position1[2]=='L'&&position1[3]=='P')
         {

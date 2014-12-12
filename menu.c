@@ -54,7 +54,7 @@ void menuPrincipal(Partie * partie)
 void menuJeu(Partie * partie)
 {
     char b;
-    int i, j, retour, alea;
+    int retour, alea;
     char addresse[150] = "niveaux/";
     char difficulteAdresse[3] [50] = {"facile/", "moyen/", "difficile/"};
     char fichierAdresses[3][50] = { "1.pbm", "2.pbm", "3.pbm"};
@@ -118,6 +118,8 @@ void menuJeu(Partie * partie)
             retour = hanjie(partie);
 
             partie->temp = time(NULL) - partie->date;
+            time_t temps;
+                struct tm date;
             switch(retour)
             {
             case 2:
@@ -128,7 +130,9 @@ void menuJeu(Partie * partie)
                 sauvegarde(partie, addresse);
                 break;
             case 3:
-                score(partie);
+
+                date=*gmtime(&temps);
+                score(date.tm_hour, date.tm_min, date.tm_sec);
                 enregistrerHistorique(partie);
                 SystemPause();
                 break;
@@ -160,7 +164,7 @@ void menuJeu(Partie * partie)
                 sauvegarde(partie, addresse);
                 break;
             case 3:
-                score(partie);
+
                 enregistrerHistorique(partie);
                 break;
             }
