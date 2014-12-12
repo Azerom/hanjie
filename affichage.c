@@ -6,8 +6,6 @@ void affichage (Partie * niveau) //première fonction qui permet l'affichage de 
 
     int i,j,k; //Initialisation des variables
 
-    system("clear");
-    menuHead("Hanjie n°1");
 
     for(j = 0; j < niveau->nbIndiceMaxLigne; j++) //Première boucle for pour afficher les lettres désignant les différentes colonnes au dessus du hanjie
     {
@@ -109,14 +107,6 @@ void score(Partie * partie) //première fonction qui permettra l'affichage du sc
     int z = 0;
 
     char lettre[9];
-    sprintf(lettre,"%d:%d:%d", h, m, s); //pour vérification...
-
-
-
-        for (i = 0; i < sizeof(lettre); i++)
-        {
-            printf("%c", lettre[i]);
-        }
 
     printf("\n\n");
     printf("\n\n");

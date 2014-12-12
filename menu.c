@@ -93,7 +93,7 @@ void menuJeu(Partie * partie)
 
                 system("clear");
                 menuHead("Nouvelle Partie");
-                printf("Quelle taille de d'affichage des resultats voulez vous ? \n\t1=5*3\n\t2=7*4\n\t3=9*5\n\t4=11*6\n ");
+                printf("Quelle taille de d'affichage des resultats voulez vous ? (Fonctionalite inopérante)\n\t1=5*3\n\t2=7*4\n\t3=9*5\n\t4=11*6\n ");
                 scanf ("%1d",&(partie->tailleResultats));
 
             }
@@ -103,8 +103,6 @@ void menuJeu(Partie * partie)
 
             //Choix aléatoire du niveau à réaliser
             partie->date = time(NULL);
-            printf("--%f--", partie->date);
-            SystemPause();
             srand(partie->date);
             alea = rand()%2;
             strcat(addresse, difficulteAdresse[partie->difficulte-1]);
@@ -238,6 +236,12 @@ void menuPartie(Partie * partie)
         sauvegarde(partie, addresse);
         break;
     case 3:
+        system("clear");
+        menuHead("Bravo vous avez reussi !!");
+        affichage(partie);
+        SystemPause();
+        system("clear");
+        menuHead("Bravo vous avez reussi !!");
         score(partie);
         enregistrerHistorique(partie);
         SystemPause();

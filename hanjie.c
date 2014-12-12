@@ -14,6 +14,8 @@ int hanjie (Partie *partie)
     do
     {
         //Recupere les coordonnées
+        system("clear");
+        menuHead("Hanjie");
         affichage(partie);
         printf("Quelle case voulez vous selectionner ? (pour plus d'information taper HELP) ");
         scanf ("%s",position1);
@@ -126,9 +128,7 @@ int hanjie (Partie *partie)
     return etat;
     if (etat==1)
     return etat;
-    else  { system("clear");
-    printf ("                     \n\n\n\n\n\n\n\n \n\n                          Bravo vous avez reussi !!\n\n\n\n");
-    SystemPause();}
+    else
     return 3;
 }
 int verification(Partie *partie)
