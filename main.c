@@ -8,9 +8,15 @@ int main()
 {
 
     Partie partie;
+    partie.pattern.grille = NULL;
 
     menuPrincipal(&partie);
 
-    return 0;
 
+    if(partie.pattern.grille != NULL)
+    {
+        liberationPartie(&partie);
+    }
+
+    return 0;
 }

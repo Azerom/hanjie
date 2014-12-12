@@ -53,7 +53,7 @@ int hanjie (Partie *partie)
 
         }
 //Recherche pour savoir à quelle position se trouve le second chiffre
-        if (position1[2]==0||position1[2]=='0')
+        if (position1[2]==0)
         {
             POS1= -1;
             for (j=0; (j<partie->actuel.y)&&(POS1==-1); j++)
@@ -63,7 +63,7 @@ int hanjie (Partie *partie)
 
             }
         }
-        if (position1[1]=='1'&&position1[2]=='0'&&partie->actuel.y>=10)
+        else if (position1[1]=='1'&&position1[2]=='0'&&partie->actuel.y>=10)
         {
 
         POS1=9;

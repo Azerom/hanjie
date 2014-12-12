@@ -36,3 +36,28 @@ char** initialisationGrilleChar(int x, int y)
 
     return tableau;
 }
+void liberationGrilleInt(int **grille, int y)
+{
+    int i;
+    for(i = 0; i < y; i++)
+    {
+        free(grille[i]);//Liberation des tableau d'entiers
+    }
+    free(grille);
+}
+void liberationGrilleChar(char **grille, int y)
+{
+    int i;
+    for(i = 0; i < y; i++)
+    {
+        free(grille[i]);//Liberation des tableau de charcactere
+    }
+    free(grille);
+}
+void liberationPartie(Partie *partie)
+{
+    liberationGrilleChar(partie->pattern.grille, partie->pattern.y);
+    liberationGrilleChar(partie->actuel.grille, partie->actuel.y);
+    liberationGrilleInt(partie->indiceColonne, partie->actuel.y);
+    liberationGrilleInt(partie->indiceLigne, partie->actuel.y);
+}
