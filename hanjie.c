@@ -64,27 +64,27 @@ int hanjie (Partie *partie)
             }
         }
 //Si le la deuxieme coordonnée est une dizaine
-        else if(position1[1]=='1'&&position1[2]=='0')
+        else if(position1[1]=='1'&&position1[2]=='0'&&partie->actuel.y>9)
         {
             POS1=9;
         }
-        else if(position1[1]=='1'&&position1[2]=='1')
+        else if(position1[1]=='1'&&position1[2]=='1'&&partie->actuel.y>9)
         {
             POS1=10;
         }
-        else if(position1[1]=='1'&&position1[2]=='2')
+        else if(position1[1]=='1'&&position1[2]=='2'&&partie->actuel.y>9)
         {
             POS1=11;
         }
-        else if(position1[1]=='1'&&position1[2]=='3')
+        else if(position1[1]=='1'&&position1[2]=='3'&&partie->actuel.y>9)
         {
             POS1=12;
         }
-        else if(position1[1]=='1'&&position1[2]=='4')
+        else if(position1[1]=='1'&&position1[2]=='4'&&partie->actuel.y>9)
         {
             POS1=13;
         }
-        else if(position1[1]=='1'&&position1[2]=='5')
+        else if(position1[1]=='1'&&position1[2]=='5'&&partie->actuel.y>9)
         {
             POS1=14;
         }
