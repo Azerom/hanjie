@@ -71,15 +71,19 @@ void menuJeu(Partie * partie)
         {
 
         case '1' :
-            system("clear");
-            viderTampon();
-            menuHead("Nouvelle Partie");
-            printf("Entrez votre pseudo (50 caractères maximum):\n ");
-            scanf("%[^\n]50s", partie->pseudo);
-            viderTampon();
+            partie->pseudo[0] = '\0';
             do
             {
-
+                system("clear");
+                viderTampon();
+                menuHead("Nouvelle Partie");
+                printf("Entrez votre pseudo (50 caractères maximum):\n ");
+                scanf("%[^\n]50s", partie->pseudo);
+            }
+            while(partie->pseudo[0] == '\0');
+            do
+            {
+                viderTampon();
                 system("clear");
                 menuHead("Nouvelle Partie");
                 printf("Quelle difficulté du niveau voulez vous ?\n\t1=FACILE\n\t2=MOYEN\n\t3=DIFFICILE\n");
@@ -88,10 +92,9 @@ void menuJeu(Partie * partie)
 
             }
             while (partie->difficulte != 1 && partie->difficulte != 2 && partie->difficulte != 3);
-            viderTampon();
             do
             {
-
+                viderTampon();
                 system("clear");
                 menuHead("Nouvelle Partie");
                 printf("Quelle taille de d'affichage des resultats voulez vous ? (Fonctionalite inopérante)\n\t1=5*3\n\t2=7*4\n\t3=9*5\n\t4=11*6\n ");
@@ -182,7 +185,7 @@ void menuHistorique()
             menuHead("Historique");
             fichier = fopen("historique.log", "r");
             ElementHistorique * historique = NULL;
-            historique = lireHistorique(historique, fichier);
+            historique = (ElementHistorique*)lireHistorique(historique, fichier);
             fclose(fichier);
             afficherHistorique(historique);
             freeHistorique(historique);
