@@ -105,6 +105,15 @@ void menuJeu(Partie * partie)
             partie->date = time(NULL);
             srand(partie->date);
             alea = rand()%2;
+            addresse[0] = 'n';
+            addresse[1] = 'i';
+            addresse[2] = 'v';
+            addresse[3] = 'e';
+            addresse[4] = 'a';
+            addresse[5] = 'u';
+            addresse[6] = 'x';
+            addresse[7] = '/';
+            addresse[8] = '\0';
             strcat(addresse, difficulteAdresse[partie->difficulte-1]);
             strcat(addresse, fichierAdresses[alea]);
 

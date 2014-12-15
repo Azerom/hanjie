@@ -29,6 +29,7 @@ void lectureNiveau (char addresse [100], Cases * niveau)
         do
         {
             test = fgetc(fichier);
+
         }while(test == '\n' || test == ' ');//Si on lit un retour a la ligne ou un espace, la ligne lu est respectivemnt vide ou commence par une série d'espace
                                             //donc, on relit un caractére
 

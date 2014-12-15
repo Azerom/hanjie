@@ -38,7 +38,9 @@ void affichage (Partie * niveau) //première fonction qui permet l'affichage de 
             }
             else
             {
-                printf(" %d  ", niveau->indiceColonne[j][i]);
+                printf(" %d ", niveau->indiceColonne[j][i]);
+                if(niveau->indiceColonne[j][i] < 10)
+                    printf(" ");
             }
         }
         printf("\n");
@@ -58,7 +60,9 @@ void affichage (Partie * niveau) //première fonction qui permet l'affichage de 
             }
             else
             {
-                printf("%d ", niveau->indiceLigne[i][k]);
+                printf("%d", niveau->indiceLigne[i][k]);
+                if (niveau->indiceLigne[i][k] < 10)
+                    printf(" ");
             }
         }
         //fin de test
