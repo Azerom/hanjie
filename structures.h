@@ -60,4 +60,5 @@ typedef struct ElementHistorique ElementHistorique;
 
 int** initialisationGrilleInt(int x, int y);
 char** initialisationGrilleChar(int x, int y);
+void liberationPartie(Partie *partie);
 #endif // STRUCTURES_H_INCLUDED

@@ -54,7 +54,7 @@ void menuPrincipal(Partie * partie)
 void menuJeu(Partie * partie)
 {
     char b;
-    int retour, alea;
+    int alea, tmp;
     char addresse[150] = "niveaux/";
     char addresseSave[150];
     char difficulteAdresse[3] [50] = {"facile/", "moyen/", "difficile/"};
@@ -74,7 +74,7 @@ void menuJeu(Partie * partie)
             system("clear");
             viderTampon();
             menuHead("Nouvelle Partie");
-            printf("Entrez votre pseudo (50 charactéres maximum):\n ");
+            printf("Entrez votre pseudo (50 caractères maximum):\n ");
             scanf("%[^\n]50s", partie->pseudo);
             viderTampon();
             do
@@ -83,7 +83,8 @@ void menuJeu(Partie * partie)
                 system("clear");
                 menuHead("Nouvelle Partie");
                 printf("Quelle difficulté du niveau voulez vous ?\n\t1=FACILE\n\t2=MOYEN\n\t3=DIFFICILE\n");
-                scanf ("%d",&(partie->difficulte));
+                scanf ("%d",&tmp);
+                partie->difficulte = tmp;
 
             }
             while (partie->difficulte != 1 && partie->difficulte != 2 && partie->difficulte != 3);
@@ -94,7 +95,8 @@ void menuJeu(Partie * partie)
                 system("clear");
                 menuHead("Nouvelle Partie");
                 printf("Quelle taille de d'affichage des resultats voulez vous ? (Fonctionalite inopérante)\n\t1=5*3\n\t2=7*4\n\t3=9*5\n\t4=11*6\n ");
-                scanf ("%1d",&(partie->tailleResultats));
+                scanf ("%1d",&tmp);
+                partie->tailleResultats = tmp;
 
             }
             while (partie->tailleResultats != 1 && partie->tailleResultats != 2 && partie->tailleResultats != 3 && partie->tailleResultats != 4);
@@ -181,7 +183,9 @@ void menuHistorique()
             fichier = fopen("historique.log", "r");
             ElementHistorique * historique = NULL;
             historique = lireHistorique(historique, fichier);
+            fclose(fichier);
             afficherHistorique(historique);
+            freeHistorique(historique);
             SystemPause();
             break;
 

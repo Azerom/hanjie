@@ -14,5 +14,6 @@ void menuPrincipal(Partie * partie);
 void menuHistorique();
 void menuJeu(Partie * partie);
 void afficherHistorique(ElementHistorique * historique);
+void menuPartie(Partie * partie);
 
 #endif // MENU_H_INCLUDED

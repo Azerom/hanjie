@@ -115,7 +115,7 @@ void score(Partie * partie) //première fonction qui permettra l'affichage du sc
     printf("\n\n");
     printf("\n\n");
 
-    int tab[5][3]; //initialisation des tableaux -> tab à deux dimensions et temps à trois dimensions
+    //int tab[5][3]; //initialisation des tableaux -> tab à deux dimensions et temps à trois dimensions
     int temps[8][5][3];
 
     if (h < 10 && m < 10 && s < 10){sprintf (lettre,"0%d:0%d:0%d",h,m,s);} // lors de l'affichage du score, ces if, else if et else empêchent le dépassement de tableau

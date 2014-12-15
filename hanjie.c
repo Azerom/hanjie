@@ -5,7 +5,7 @@ int hanjie (Partie *partie)
 
 
     int i,j,POS,POS1;
-    char position1[4];
+    char position1[5];
     char lettreM[16]= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'};
     char lettrem[16]= {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'};
     char chiffre[9]= {'1','2','3','4','5','6','7','8','9'};
@@ -20,7 +20,7 @@ int hanjie (Partie *partie)
         printf("Quelle case voulez vous selectionner ? (pour plus d'information taper HELP) ");
         scanf ("%s",position1);
         //Affiche les aides
-        if (position1[0]=='H'&&position1[1]=='E'&&position1[2]=='L'&&position1[3]=='P')
+        if (position1[0]=='H'&&position1[1]=='E'&&position1[2]=='L'&&position1[3]=='P'&&position1[4]=='\0')
         {
 
             printf("Pour quitter taper : EXIT\nPour sauvegarder taper : SAVE\n");
@@ -28,16 +28,21 @@ int hanjie (Partie *partie)
             affichage(partie);
         }
         //Quitte la partie
-        if(position1[0]=='E'&&position1[1]=='X'&&position1[2]=='I'&&position1[3]=='T')
+        if(position1[0]=='E'&&position1[1]=='X'&&position1[2]=='I'&&position1[3]=='T'&&position1[4]=='\0')
         {
             etat=1;
 
         }
         //Sauvegarde la partie
-        if(position1[0]=='S'&&position1[1]=='A'&&position1[2]=='V'&&position1[3]=='E')
+        if(position1[0]=='S'&&position1[1]=='A'&&position1[2]=='V'&&position1[3]=='E'&&position1[4]=='\0')
         {
 
             etat=2;
+        }
+        if(position1[0]=='4'&&position1[1]=='2'&&position1[2]=='\0')
+        {
+
+            etat=3;
         }
 
 //Recherche pour savoir à quelle position se trouve la premiere lettre (en majuscule ou minuscule)

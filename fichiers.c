@@ -180,7 +180,7 @@ void chargement(Partie * partie, char addresse[150])
 
   char lu = 0;
   char chaine [51];
-  int i,j, grilleLu = 0;
+  int i,j, grilleLu = 0, int_temp;
 
   if (fichier==NULL) perror ("Erreur a l'ourverture du fichier");
   else
@@ -189,7 +189,7 @@ void chargement(Partie * partie, char addresse[150])
     {
         fseek(fichier, -1, SEEK_CUR);
 
-        while(lu = fgetc(fichier) == ' ');
+        while( (lu = fgetc(fichier) ) == ' ');
 
         if (lu != '#' && lu !='\n')
         {
@@ -202,13 +202,22 @@ void chargement(Partie * partie, char addresse[150])
             else if(!strcmp(chaine, "t_save:"))
                 fscanf(fichier, " %lf", &(partie->temp));
             else if(!strcmp(chaine, "pseudo:"))
-                fscanf(fichier, " %s", &(partie->pseudo));
+                fscanf(fichier, " %[^\n]s", &(partie->pseudo));
             else if(!strcmp(chaine, "type:"))
-                fscanf(fichier, " %d", &(partie->type));
+            {
+                fscanf(fichier, " %d", &(int_temp));
+                partie->type = (TypeNiveau) int_temp;
+            }
             else if(!strcmp(chaine, "taille_score:"))
-                fscanf(fichier, " %d", &(partie->tailleResultats));
+            {
+                fscanf(fichier, " %d", &(int_temp));
+                partie->tailleResultats = (TailleResultats) int_temp;
+            }
             else if(!strcmp(chaine, "difficultee:"))
-                fscanf(fichier, " %d", &(partie->difficulte));
+            {
+                fscanf(fichier, " %d", &(int_temp));
+                partie->difficulte = (Difficulte) int_temp;
+            }
             else if(!strcmp(chaine, "grille_pattern:"))
             {
                 fscanf(fichier, " %d %d", &(partie->pattern.y), &(partie->pattern.x));
@@ -326,7 +335,7 @@ void enregistrerHistorique (Partie *partie)
     fclose(fichier);
 }
 
-int lireHistorique (ElementHistorique *actuel, FILE * fichier)
+long lireHistorique (ElementHistorique *actuel, FILE * fichier)
 {
     ElementHistorique *nouveau = malloc(sizeof(*nouveau));
 
@@ -359,6 +368,18 @@ int lireHistorique (ElementHistorique *actuel, FILE * fichier)
         lireHistorique(nouveau, fichier);
     }
 
-    return actuel;
+    return (long)actuel;
+
+}
+
+void freeHistorique(ElementHistorique *actuel)
+{
+    if(actuel != NULL)
+    {
+        ElementHistorique *transition = actuel->suivant;
+        free(actuel);
+
+        freeHistorique(transition);
+    }
 
 }
