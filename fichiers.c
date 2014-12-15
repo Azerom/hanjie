@@ -320,7 +320,7 @@ void enregistrerHistorique (Partie *partie)
     if (fichier==NULL) perror ("Erreur a l'ourverture du fichier");
     else
     {
-        fprintf(fichier, "%s%f~%s~%d~%d~%f\n", date, (double)temps, partie->pseudo, partie->type, partie->difficulte, partie->temp);
+        fprintf(fichier, "%s~%f~%s~%d~%d~%f\n", date, (double)temps, partie->pseudo, partie->type, partie->difficulte, partie->temp);
     }
 
     fclose(fichier);
@@ -330,6 +330,8 @@ int lireHistorique (ElementHistorique *actuel, FILE * fichier)
 {
     ElementHistorique *nouveau = malloc(sizeof(*nouveau));
 
+    fscanf(fichier, "%*[^~]s");
+    fseek(fichier, 1, SEEK_CUR);
     fscanf(fichier,"%lf", &(nouveau->date));
     fseek(fichier, 1, SEEK_CUR);
     fscanf(fichier,"%[^~]s", nouveau->pseudo);

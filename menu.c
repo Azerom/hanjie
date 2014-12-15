@@ -219,6 +219,7 @@ void afficherHistorique(ElementHistorique * historique)
         strftime(format, 50, "%d/%m/%y %X", &t_local);
         printf("%s", format);
 
+        date = historique->temp;
         t_local=*localtime(&date);
         strftime(format, 50, "%X", &t_local);
         printf(" : %s en %s, finit en %s\n", historique->pseudo, tabDifficulte[historique->difficulte-1], format);
