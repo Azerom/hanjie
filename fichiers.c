@@ -22,20 +22,20 @@ void lectureNiveau (char addresse [100], Cases * niveau)
     if (fichier==NULL) perror ("Erreur a l'ourverture du fichier");
     else
     {
-        //----Lecture du fichier
-        int i = 0, j = 0, etat = 0;//Etat permet de savoir quelle information a déja été lu
-                                    // 0 = Rien, 1 = Le numéro magique, 2 = Les dimensions
-        char test = 0;
-        while (etat < 3)
-        {//On lit le premier caractére de chaque ligne
-            do
-            {
-                test = fgetc(fichier);
-            }while(test == '\n' || test == ' ');//Si on lit un retour a la ligne ou un espace, la ligne lu est respectivemnt vide ou commence par une série d'espace
-                                                //donc, on relit un caractére
+    //----Lecture du fichier
+    int i = 0, j = 0, etat = 0;//Etat permet de savoir quelle information a déja été lu
+                                // 0 = Rien, 1 = Le numéro magique, 2 = Les dimensions
+    char test = 0;
+    while (etat < 3)
+    {//On lit le premier caractére de chaque ligne
+        do
+        {
+            test = fgetc(fichier);
 
-            fseek(fichier, -1, SEEK_CUR);//On revient avant le carac actuel, pour permetre son traitement
+        }while(test == '\n' || test == ' ');//Si on lit un retour a la ligne ou un espace, la ligne lu est respectivemnt vide ou commence par une série d'espace
+                                            //donc, on relit un caractére
 
+        fseek(fichier, -1, SEEK_CUR);//On revient avant le carac actuel, pour permetre son traitement
 
             if(test != '#')//On vérifie qu'il ne s'agit pas d'un commentaire
             {
