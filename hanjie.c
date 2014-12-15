@@ -143,9 +143,6 @@ int verification(Partie *partie)
             if (partie->actuel.grille[i][j]!=partie->pattern.grille[i][j])
                 a=1;
 
-
-
-
         }
 
     }
